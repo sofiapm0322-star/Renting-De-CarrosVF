@@ -337,20 +337,39 @@ public boolean vehiculoTieneContratoActivo(String placa) {
 
     public void eliminarCliente() {
 
-        String cedula = validarSoloNumeros("Cedula: ");
+    String cedula = validarSoloNumeros("Cedula: ");
 
-        Cliente cliente = buscarClienteObjeto(cedula);
+    Cliente cliente = buscarClienteObjeto(cedula);
 
-       if (cliente != null) {
+    if (cliente != null) {
 
-    if (clienteTieneContratoActivoPorCedula(cedula)) {
+        if (clienteTieneContratoActivoPorCedula(cedula)) {
 
-        System.out.println(
-                "No se puede eliminar el cliente porque tiene un contrato activo.");
-        return;
+            System.out.println(
+                    "No se puede eliminar el cliente porque tiene un contrato activo.");
+            return;
         }
+
+        vector_clientes.remove(cliente);
+
+        for (int i = 0; i < vector_contratos.size(); i++) {
+
+            if (vector_contratos.get(i)
+                    .getCedulaCliente()
+                    .equals(cedula)) {
+
+                vector_contratos.remove(i);
+                i--;
+            }
+        }
+
+        System.out.println("Cliente eliminado correctamente.");
+
+    } else {
+
+        System.out.println("Cliente no encontrado.");
     }
-    }
+}
 
     // ================= VEHICULOS =================
 
@@ -477,20 +496,39 @@ public boolean vehiculoTieneContratoActivo(String placa) {
 
     public void eliminarVehiculo() {
 
-        String placa = validarPlaca("Placa: ");
+    String placa = validarPlaca("Placa: ");
 
-        Vehiculo vehiculo = buscarVehiculoObjeto(placa);
+    Vehiculo vehiculo = buscarVehiculoObjeto(placa);
 
-        if (vehiculo != null) {
+    if (vehiculo != null) {
 
-    if (vehiculoTieneContratoActivo(placa)) {
+        if (vehiculoTieneContratoActivo(placa)) {
 
-        System.out.println(
-                "No se puede eliminar el vehiculo porque tiene un contrato activo.");
-        return;
+            System.out.println(
+                    "No se puede eliminar el vehiculo porque tiene un contrato activo.");
+            return;
+        }
+
+        vector_vehiculos.remove(vehiculo);
+
+        for (int i = 0; i < vector_contratos.size(); i++) {
+
+            if (vector_contratos.get(i)
+                    .getPlacaVehiculo()
+                    .equalsIgnoreCase(placa)) {
+
+                vector_contratos.remove(i);
+                i--;
+            }
+        }
+
+        System.out.println("Vehiculo eliminado correctamente.");
+
+    } else {
+
+        System.out.println("Vehiculo no encontrado.");
     }
 }
-    }
 
     // ================= CONTRATOS =================
 
