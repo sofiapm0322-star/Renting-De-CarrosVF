@@ -652,14 +652,30 @@ if (dias <= 0) {
 
         if (contrato != null) {
 
-            contrato.setFechaInicio(
-                    validarTexto("Nueva fecha inicio: "));
+            String nuevaInicio =
+        validarFecha("Nueva fecha inicio (dd/MM/yyyy): ");
 
-            contrato.setFechaFin(
-                    validarTexto("Nueva fecha fin: "));
+String nuevaFin =
+        validarFecha("Nueva fecha fin (dd/MM/yyyy): ");
 
-            contrato.setTotalDias(
-                    validarEntero("Nuevo total dias: "));
+LocalDate inicio =
+        LocalDate.parse(nuevaInicio, formatoFecha);
+
+LocalDate fin =
+        LocalDate.parse(nuevaFin, formatoFecha);
+
+long dias =
+        ChronoUnit.DAYS.between(inicio, fin);
+
+if (dias <= 0) {
+
+    System.out.println("ERROR. La fecha final debe ser posterior a la fecha inicial.");
+    return;
+}
+
+contrato.setFechaInicio(nuevaInicio);
+contrato.setFechaFin(nuevaFin);
+contrato.setTotalDias((int) dias);
 
             Vehiculo vehiculo =
                     buscarVehiculoObjeto(
