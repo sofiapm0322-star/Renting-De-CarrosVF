@@ -71,6 +71,39 @@ public boolean vehiculoTieneContratoActivo(String placa) {
     return false;
 }
 
+    public String validarTransmision() {
+
+    System.out.println("Seleccione la transmision:");
+    System.out.println("1. Manual");
+    System.out.println("2. Automatica");
+
+    int opcion = validarEntero("Seleccione: ");
+
+    if (opcion == 1) {
+        return "Manual";
+    } else if (opcion == 2) {
+        return "Automatica";
+    } else {
+        System.out.println("ERROR. Opcion invalida.");
+        return validarTransmision();
+    }
+}
+
+    public float validarCapacidadMaletero() {
+
+    float capacidad =
+            validarFloat("Capacidad maletero: ");
+
+    if (capacidad >= 100 && capacidad <= 1000) {
+        return capacidad;
+    }
+
+    System.out.println(
+            "ERROR. La capacidad debe estar entre 100 y 1000 litros.");
+
+    return validarCapacidadMaletero();
+}
+
     public String validarSoloNumeros(String mensaje) {
 
         System.out.print(mensaje);
@@ -409,8 +442,8 @@ public boolean vehiculoTieneContratoActivo(String placa) {
             String combustible =
                     validarSoloLetras("Tipo combustible: ");
 
-            String transmision =
-                    validarSoloLetras("Transmision: ");
+           String transmision =
+            validarTransmision();
 
             CarroSedan carro = new CarroSedan(
                     placa,
@@ -429,7 +462,7 @@ public boolean vehiculoTieneContratoActivo(String placa) {
             String traccion = validarTraccion();
 
             float maletero =
-                    validarFloat("Capacidad maletero: ");
+            validarCapacidadMaletero();
 
             CamionetaSUV suv = new CamionetaSUV(
                     placa,
